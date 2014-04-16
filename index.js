@@ -1,3 +1,5 @@
+var xtend = require('xtend');
+
 exports.div = div;
 function div(den) {
   return function (data) {
@@ -26,5 +28,13 @@ function sub(num) {
   };
 }
 
+exports.xtend = _xtend;
+function _xtend(patch) {
+  return function (data) {
+    return xtend(data, patch);
+  }
+}
+
 exports.selector = exports.pluck = require('./selector');
 exports.monotonic = require('./monotonic');
+exports.transform = require('./transform');

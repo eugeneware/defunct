@@ -105,3 +105,81 @@ it('should fallback to normal monotonic timestamp with no args', function(t) {
   }
   t.end();
 });
+
+it('should be able to change a field in an object', function(t) {
+  var data = {
+    a: {
+      field: 42
+    },
+    b: {
+      meaning: 'life'
+    }
+  };
+  var transform = d.transform('a.field', { something: 'else' });
+  var result = transform(data);;
+  var expect = { a: { field: { something: 'else' } },
+                 b: { meaning: 'life' } };
+  t.deepEqual(result, expect, 'simple replacement');
+  t.end();
+});
+
+it('should be able to change multiple fields in an object', function(t) {
+  var data = {
+    a: {
+      field: 42
+    },
+    b: {
+      meaning: 'life'
+    },
+    c: 'blah'
+  };
+  var transform = d.transform(
+    'a.field', { something: 'else' },
+    'b.meaning', 42
+  );
+
+  var result = transform(data);;
+  var expect = { a: { field: { something: 'else' } },
+                 b: { meaning: 42 },
+                 c: 'blah' };
+  t.deepEqual(result, expect, 'multiple replacement');
+  t.end();
+});
+
+it('should be able to change a field in an object with a fn', function(t) {
+  var data = {
+    a: {
+      field: 42
+    },
+    b: {
+      meaning: 'life'
+    }
+  };
+  var transform = d.transform('a.field', d.mul(10));
+  var result = transform(data);;
+  var expect = { a: { field: 420 },
+                 b: { meaning: 'life' } };
+  t.deepEqual(result, expect, 'function replacement');
+  t.end();
+});
+
+it('should be able to xtend and object', function(t) {
+  var data = {
+    a: {
+      field: 42
+    },
+    b: {
+      meaning: 'life'
+    }
+  };
+
+  var patch = {
+    a: 'something'
+  };
+
+  var xtend = d.xtend(patch);
+  var expect = { a: 'something',
+                 b: { meaning: 'life' } };
+  t.deepEqual(xtend(data), expect, 'object extension');
+  t.end();
+});

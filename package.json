@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "pathos": "^0.1.0",
-    "monotonic-timestamp": "0.0.8"
+    "monotonic-timestamp": "0.0.8",
+    "xtend": "^3.0.0"
   },
   "devDependencies": {
     "redtape": "~0.1.0",
