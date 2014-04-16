@@ -1,12 +1,12 @@
 var selector = require('./selector'),
-    xtend = require('xtend'),
+    clone = require('clone'),
     pathos = require('pathos');
 
 module.exports = transform;
 function transform() {
   var args = Array.prototype.slice.call(arguments);
   return function (data) {
-    var slices = [];
+    data = clone(data);
     for (var i = 0; i < args.length; i += 2) {
       var selectorExpr = args[i];
       var replacement = args[i + 1];
@@ -17,9 +17,9 @@ function transform() {
       } else {
         slice.value = replacement;
       }
-      slices.push(slice);
+      pathos.set(data, slice.key, slice.value);
     }
 
-    return xtend(data, pathos.build(slices));
+    return data;
   }
 }

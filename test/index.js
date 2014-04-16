@@ -126,7 +126,8 @@ it('should be able to change a field in an object', function(t) {
 it('should be able to change multiple fields in an object', function(t) {
   var data = {
     a: {
-      field: 42
+      field: 42,
+      keep: 'this'
     },
     b: {
       meaning: 'life'
@@ -139,7 +140,7 @@ it('should be able to change multiple fields in an object', function(t) {
   );
 
   var result = transform(data);;
-  var expect = { a: { field: { something: 'else' } },
+  var expect = { a: { field: { something: 'else' }, keep: 'this' },
                  b: { meaning: 42 },
                  c: 'blah' };
   t.deepEqual(result, expect, 'multiple replacement');
@@ -163,7 +164,7 @@ it('should be able to change a field in an object with a fn', function(t) {
   t.end();
 });
 
-it('should be able to xtend and object', function(t) {
+it('should be able to xtend an object', function(t) {
   var data = {
     a: {
       field: 42
