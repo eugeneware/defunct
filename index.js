@@ -27,3 +27,4 @@ function sub(num) {
 }
 
 exports.selector = exports.pluck = require('./selector');
+exports.monotonic = require('./monotonic');
