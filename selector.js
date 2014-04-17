@@ -4,9 +4,17 @@ module.exports = selector;
 function selector(s, build) {
   if (typeof build === 'undefined') build = false;
 
+  if (s === null) {
+    s = [];
+  }
+
   if (typeof s === 'string') {
     // treat string as a path
-    s = s.split('.');
+    if (s === '') {
+      s = [];
+    } else {
+      s = s.split('.');
+    }
   }
 
   if (typeof s === 'function') {

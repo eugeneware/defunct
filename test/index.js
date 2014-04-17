@@ -184,3 +184,26 @@ it('should be able to xtend an object', function(t) {
   t.deepEqual(xtend(data), expect, 'object extension');
   t.end();
 });
+
+it('should be able to select a whole object', function(t) {
+  var data = {
+    a: {
+      field: 42
+    },
+    b: {
+      meaning: 'life'
+    }
+  };
+  var locator, results, expected;
+
+  locator = d.selector(null);
+  results = locator(data);
+  expected = JSON.parse(JSON.stringify(data));
+  t.deepEqual(results, data, 'select whole object null arg');
+
+  locator = d.selector('');
+  results = locator(data);
+  expected = JSON.parse(JSON.stringify(data));
+  t.deepEqual(results, data, 'select whole object empty string arg');
+  t.end();
+});
