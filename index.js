@@ -1,4 +1,5 @@
-var xtend = require('xtend');
+var xtend = require('xtend'),
+    pathos = require('pathos');
 
 exports.div = div;
 function div(den) {
@@ -32,7 +33,15 @@ exports.xtend = _xtend;
 function _xtend(patch) {
   return function (data) {
     return xtend(data, patch);
-  }
+  };
+}
+
+exports.rewrite = rewrite;
+function rewrite(fn) {
+  return function (data) {
+    pathos.rewrite(data, fn);
+    return data;
+  };
 }
 
 exports.selector = exports.pluck = require('./selector');

@@ -207,3 +207,39 @@ it('should be able to select a whole object', function(t) {
   t.deepEqual(results, data, 'select whole object empty string arg');
   t.end();
 });
+
+it('should be able to rewrite an object', function(t) {
+  var data = {
+    a: {
+      field: 42
+    },
+    b: {
+      meaning: 'life'
+    }
+  };
+
+  var rewriter = d.rewrite(function (key, value) {
+    if (key[key.length - 1] === 'field') {
+      key[key.length - 1] = 'prop';
+      return {
+        key: key,
+        value: 'changed'
+      };
+      return data;
+    } else {
+      return true;
+    }
+  });
+
+  var results = rewriter(data);
+  var expected = {
+    a: {
+      prop: 'changed'
+    },
+    b: {
+      meaning: 'life'
+    }
+  };
+  t.deepEqual(results, expected);
+  t.end();
+});
