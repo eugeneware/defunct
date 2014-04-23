@@ -47,3 +47,4 @@ function rewrite(fn) {
 exports.selector = exports.pluck = require('./selector');
 exports.monotonic = require('./monotonic');
 exports.transform = require('./transform');
+exports.objectify = require('./objectify');
