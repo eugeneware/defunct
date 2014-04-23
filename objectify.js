@@ -1,14 +1,20 @@
-var selector = require('./selector');
+var pathos = require('pathos'),
+    selector = require('./selector');
 module.exports = function(mapping) {
-  var keys = Object.keys(mapping);
-  var fns = keys.map(function (key, i) {
-    return selector(mapping[key]);
+  var slices = pathos.slice(mapping).map(function (slice) {
+    return {
+      key: slice.key,
+      value: slice.value,
+      fn: selector(slice.value)
+    };
   });
   return function (data) {
-    var result = {};
-    keys.forEach(function (key, i) {
-      result[key] = fns[i](data);
+    var components = slices.map(function (slice) {
+      return {
+        key: slice.key,
+        value: slice.fn(data)
+      };
     });
-    return result;
+    return pathos.build(components);
   };
 };

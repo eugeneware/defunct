@@ -247,13 +247,13 @@ it('should be able to rewrite an object', function(t) {
 it('should be able to objectify an array', function(t) {
   var rows = require('./fixtures/weblog');
   var results = rows.map(d.objectify({
-    'ip': '0',
-    'ts': '3',
-    'request': '5',
-    'status': '7',
-    'size': '8',
-    'referer': '9',
-    'useragent': '11'
+    ip: '0',
+    ts: '3',
+    request: '5',
+    status: '7',
+    size: '8',
+    referer: '9',
+    useragent: '11'
   }));
   var expected =
     [ { ip: '68.205.23.113',
@@ -278,6 +278,32 @@ it('should be able to objectify an array', function(t) {
         referer: 'http://www.noblesamurai.com/dojo/marketsamurai/7284-introduction-to-keyword-research',
         useragent: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; InfoPath.2)' } ];
 
+  t.deepEquals(results, expected);
+  t.end();
+});
+
+it('should be able to object a more complex structure', function(t) {
+  var rows = require('./fixtures/weblog');
+  var results = rows.map(d.objectify({
+    mykey: [ '3', '0' ],
+    mydata: {
+      request: '5',
+      useragent: '11'
+    }
+  }));
+  var expected = [
+    { mykey: { '0': '24/Jun/2012:06:44:56 +1000', '1': '68.205.23.113' },
+      mydata:
+       { request: 'GET /affiliate/MarketSamuraiBanner2.jpg HTTP/1.1',
+         useragent: 'Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48.3' } },
+    { mykey: { '0': '24/Jun/2012:06:44:56 +1000', '1': '67.193.234.164' },
+      mydata:
+       { request: 'POST /app/register.php HTTP/1.1',
+         useragent: 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9) Gecko/2008052906 Firefox/3.0' } },
+    { mykey: { '0': '24/Jun/2012:06:44:56 +1000', '1': '190.98.91.239' },
+      mydata:
+       { request: 'GET /dojo/marketsamurai HTTP/1.1',
+         useragent: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; InfoPath.2)' } } ];
   t.deepEquals(results, expected);
   t.end();
 });
