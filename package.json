@@ -22,7 +22,7 @@
     "url": "https://github.com/eugeneware/defunct/issues"
   },
   "dependencies": {
-    "pathos": "^0.4.0",
+    "pathos": "^0.5.0",
     "monotonic-timestamp": "0.0.8",
     "xtend": "^3.0.0",
     "clone": "^0.1.11"
