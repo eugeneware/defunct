@@ -23,12 +23,12 @@
   },
   "dependencies": {
     "pathos": "^0.5.0",
-    "monotonic-timestamp": "0.0.8",
-    "xtend": "^3.0.0",
+    "monotonic-timestamp": "0.0.9",
+    "xtend": "^4.0.0",
     "clone": "^0.1.11"
   },
   "devDependencies": {
     "redtape": "^1.0.0",
-    "tape": "^2.12.3"
+    "tape": "^3.0.0"
   }
 }
