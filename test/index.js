@@ -71,6 +71,19 @@ it('should be able to select (array path)', function(t) {
   t.end();
 });
 
+it('should be able to change a value using a selector', function(t) {
+  var locator = d.selector(['my', 'property']);
+  var data = {
+    my: {
+      property: 42
+    }
+  };
+  locator(data, 100);
+  t.equal(locator(data), 100, 'simple selector with locator');
+  t.equal(data.my.property, 100, 'simple selector raw object');
+  t.end();
+});
+
 it('should be able to ensure monotonic sequences', function(t) {
   var monotonic = d.monotonic();
   var last = -Infinity;

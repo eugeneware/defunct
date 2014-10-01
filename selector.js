@@ -30,8 +30,12 @@ function selector(s, build) {
         };
       };
     } else {
-      return function (data) {
-        return pathos.walk(data, s);
+      return function (data, newVal) {
+        if (typeof newVal === 'undefined') {
+          return pathos.walk(data, s);
+        } else {
+          pathos.set(data, s, newVal);
+        }
       };
     }
   } else {
@@ -41,3 +45,4 @@ function selector(s, build) {
     };
   }
 }
+
