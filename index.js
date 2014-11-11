@@ -44,6 +44,13 @@ function rewrite(fn) {
   };
 }
 
+exports.constant = constant;
+function constant(c) {
+  return function (data) {
+    return c;
+  };
+}
+
 exports.selector = exports.pluck = require('./selector');
 exports.monotonic = require('./monotonic');
 exports.transform = require('./transform');

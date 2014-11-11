@@ -27,6 +27,13 @@ it('should be able to subtract', function(t) {
   t.end();
 });
 
+it('should be able to return a constant function', 2, function(t) {
+  var c = d.constant('my constant');
+  t.equal(c('hello'), 'my constant', 'constant 1');
+  t.equal(c('world'), 'my constant', 'constant 2');
+  t.end();
+});
+
 it('should be able to select (string path)', function(t) {
   var locator = d.selector('my.property');
   var data = {
